@@ -1,0 +1,6 @@
+{
+  "name": "CLEAR EDU",
+  "description": "Curated Learning, Education & Accessible Resources. Learn without the noise.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

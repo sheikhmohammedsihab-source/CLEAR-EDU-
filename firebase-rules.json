@@ -1,0 +1,218 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "users": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        ".write": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        ".validate": "newData.hasChildren(['displayName', 'email'])",
+        "displayName": {
+          ".validate": "newData.isString() && newData.val().length > 0 && newData.val().length <= 100"
+        },
+        "email": {
+          ".validate": "newData.isString() && newData.val().length > 0"
+        }
+      }
+    },
+
+    "academicYears": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+    },
+
+    "curriculumVersions": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+    },
+
+    "subjectGroups": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+    },
+
+    "subjects": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+      ".indexOn": ["order", "published", "slug", "groupId"],
+      "$subjectId": {
+        ".validate": "newData.hasChildren(['name', 'order', 'published'])"
+      }
+    },
+
+    "chapters": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+      ".indexOn": ["subjectId", "order", "published"],
+      "$chapterId": {
+        ".validate": "newData.hasChildren(['subjectId', 'order', 'published'])"
+      }
+    },
+
+    "books": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+      ".indexOn": ["subjectId", "published", "academicYear"]
+    },
+
+    "playlists": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+      ".indexOn": ["subjectId", "chapterId", "order", "published"],
+      "$playlistId": {
+        ".validate": "newData.hasChildren(['title', 'subjectId', 'chapterId', 'order', 'published'])"
+      }
+    },
+
+    "playlistItems": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+    },
+
+    "classes": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+      ".indexOn": ["chapterId", "subjectId", "playlistId", "order", "published", "youtubeId"],
+      "$classId": {
+        ".validate": "newData.hasChildren(['subjectId', 'chapterId', 'title', 'youtubeId', 'published', 'order'])"
+      }
+    },
+
+    "resources": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+      ".indexOn": ["classId", "subjectId", "chapterId", "order", "published"],
+      "$resourceId": {
+        ".validate": "newData.hasChildren(['classId', 'title', 'type', 'url', 'order', 'published'])"
+      }
+    },
+
+    "progress": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        "$classId": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+          "positionSeconds": {
+            ".validate": "newData.isNumber()"
+          },
+          "completed": {
+            ".validate": "newData.isBoolean()"
+          }
+        }
+      }
+    },
+
+    "bookmarks": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        "$classId": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+          "savedAt": {
+            ".validate": "newData.isNumber()"
+          }
+        }
+      }
+    },
+
+    "chapterProgress": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        "$chapterId": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+        }
+      }
+    },
+
+    "subjectProgress": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        "$subjectId": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+        }
+      }
+    },
+
+    "chapterExamConfigs": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+    },
+
+    "questions": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+      ".indexOn": ["chapterId", "subjectId", "type", "difficulty", "published", "year", "sourceType"],
+      "$questionId": {
+        ".validate": "newData.hasChildren(['subjectId', 'chapterId', 'question', 'options', 'answer', 'difficulty', 'published'])"
+      }
+    },
+
+    "questionSets": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+      ".indexOn": ["subjectId", "chapterId", "published"]
+    },
+
+    "studentExamAssignments": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        "$assignmentId": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+        }
+      }
+    },
+
+    "questionAttempts": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        "$attemptId": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+        }
+      }
+    },
+
+    "questionAnswers": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        "$attemptId": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+        }
+      }
+    },
+
+    "chatSessions": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        "$sessionId": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+        }
+      }
+    },
+
+    "chatMessages": {
+      "$uid": {
+        ".read": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+        "$sessionId": {
+          ".write": "auth != null && (auth.uid === $uid || auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+        }
+      }
+    },
+
+    "appConfig": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')"
+    },
+
+    "educationSources": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+      ".indexOn": ["platform", "active", "verified", "targetClass"]
+    },
+
+    "liveClasses": {
+      ".read": true,
+      ".write": "auth != null && (auth.uid === 'Kyh57omRpLd8Zbmbt2CqL4GvhN92' || auth.token.email === 'sihabhossen937@gmail.com')",
+      ".indexOn": ["status", "subjectId", "medium", "platform", "scheduledStartTime", "approvalStatus"]
+    }
+  }
+}
