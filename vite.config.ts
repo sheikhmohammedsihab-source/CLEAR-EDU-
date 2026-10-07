@@ -4,8 +4,10 @@ import path from 'path';
 import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
+  const base = process.env.BASE_URL || (process.env.GITHUB_ACTIONS ? '/CLEAR-EDU-/' : './');
+
   return {
-    base: './',
+    base,
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
